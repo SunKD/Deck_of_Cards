@@ -6,7 +6,11 @@ namespace deckOfCards
     class Deck
     {
         List<Card> cards = new List<Card>(52);
-        public void Setcard()
+        
+        public Deck(){
+            Reset();
+        }
+        public Deck Setcard()
         {
             string  [] strvals  = { "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King" };
             string  [] suits    = { "Clubs", "Spades", "Hearts", "Diamonds" };
@@ -19,9 +23,10 @@ namespace deckOfCards
                     cards.Add(new Card(strvals[j], suits[i], numval[j]));
                 }
             }
+            return this;
         }
 
-        public void Shuffle()
+        public Deck Shuffle()
         {
             Random rand = new Random();
             for (int i = cards.Count - 1, j = cards.Count - 1; i > 0; i--, j--)
@@ -31,15 +36,18 @@ namespace deckOfCards
                 cards[i] = cards[randIndex];
                 cards[randIndex] = temp;
             }
+            return this;
         }
         public Card Deal(){
             Card topcard = cards[cards.Count-1];
             cards.Remove(topcard);
             return topcard;
         }
-        public void Reset(){
+        public Deck Reset(){
             cards.Clear();
             Setcard();
+            Shuffle();
+            return this;
         }
     }
 }
